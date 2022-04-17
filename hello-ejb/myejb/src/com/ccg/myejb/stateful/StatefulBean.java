@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 
 @Stateful
 @Remote
-public class StatefulBeanRemote implements StatefulInf {
+public class StatefulBean implements StatefulInf {
 
 	private int count;
 

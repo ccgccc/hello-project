@@ -1,6 +1,5 @@
 package com.ccg.ejbclient;
 
-import com.ccg.myejb.stateful.StatefulBeanRemote;
 import com.ccg.myejb.stateful.StatefulInf;
 import com.ccg.myejb.stateless.StatelessInf;
 
@@ -22,23 +21,23 @@ public class EjbClientTest {
 
 		Context context = new InitialContext(pro);
 		System.out.println("Stateful Bean Test:");
-		StatefulInf sf1 = (StatefulInf) context.lookup("myejb-ejb/StatefulBeanRemote!com.ccg.myejb.stateful.StatefulInf");
+		StatefulInf sf1 = (StatefulInf) context.lookup("myejb-ejb/StatefulBean!com.ccg.myejb.stateful.StatefulInf");
 		System.out.println("StatefulInf1.count: " + sf1.count());
 		System.out.println("StatefulInf1.count: " + sf1.count());
 		System.out.println("StatefulInf1.count: " + sf1.count());
 
-		StatefulInf sf2 = (StatefulInf) context.lookup("myejb-ejb/StatefulBeanRemote!com.ccg.myejb.stateful.StatefulInf");
+		StatefulInf sf2 = (StatefulInf) context.lookup("myejb-ejb/StatefulBean!com.ccg.myejb.stateful.StatefulInf");
 		System.out.println("StatefulInf2.count: " + sf2.count());
 		System.out.println("StatefulInf2.count: " + sf2.count());
 		System.out.println("StatefulInf2.count: " + sf2.count());
 
 		System.out.println("\nStateless Bean Test:");
-		StatelessInf sl1 = (StatelessInf) context.lookup("myejb-ejb/StatelessBeanRemote!com.ccg.myejb.stateless.StatelessInf");
+		StatelessInf sl1 = (StatelessInf) context.lookup("myejb-ejb/StatelessBean!com.ccg.myejb.stateless.StatelessInf");
 		System.out.println("StatefulInf1.count: " + sl1.count());
 		System.out.println("StatefulInf1.count: " + sl1.count());
 		System.out.println("StatefulInf1.count: " + sl1.count());
 
-		StatelessInf sl2 = (StatelessInf) context.lookup("myejb-ejb/StatelessBeanRemote!com.ccg.myejb.stateless.StatelessInf");
+		StatelessInf sl2 = (StatelessInf) context.lookup("myejb-ejb/StatelessBean!com.ccg.myejb.stateless.StatelessInf");
 		System.out.println("StatefulInf2.count: " + sl2.count());
 		System.out.println("StatefulInf2.count: " + sl2.count());
 		System.out.println("StatefulInf2.count: " + sl2.count());

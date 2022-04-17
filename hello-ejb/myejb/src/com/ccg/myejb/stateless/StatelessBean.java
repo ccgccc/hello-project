@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 
 @Stateless
 @Remote
-public class StatelessBeanRemote implements StatelessInf {
+public class StatelessBean implements StatelessInf {
 
 	private int count;
 
