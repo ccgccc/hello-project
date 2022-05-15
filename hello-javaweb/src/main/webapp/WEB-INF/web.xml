@@ -46,16 +46,18 @@
             Servlet Path: /hello-servlet
             Path Info: /
         -->
-        <url-pattern>/*</url-pattern>
+        <!--<url-pattern>/*</url-pattern>-->
 
         <!--
             设置成 "/" 时: 覆盖 tomcat 的 DefaultServlet 设置(定义在<tomcat>/conf/web.xml中)
-            当定义 <welcome-file>index.jsp</welcome-file> 时:
-            (这是因为servlet查找顺序为: 用户自定义servlet > welcome-file > DefaultServlet，所以此时还可请求到 index.jsp)
+            当定义 <welcome-file>index.jsp</welcome-file> 时(需要定义在welcome-file-list的第一个):
+            (正常情况下 welcome-file 是由 DefaultServlet 来处理的，但此时 DefaultServlet 已被覆盖；
+            Tomcat会给请求默认加上index.jsp，此时会由<tomcat>/conf/web.xml中定义的 JspServlet 接管请求，也可以返回index.jsp；
+            但如果index.html放在第一个则不行，此时会映射到 HelloXmlServlet 上，而 HelloXmlServlet 并不处理 welcome-file)
             Entering Filter...  :请求到 index.jsp
             Request URI: /hello_javaweb_war_exploded/
             Context Path: /hello_javaweb_war_exploded
-            Servlet Path: /index.jsp
+            Servlet Path: /index.jsp (由org.apache.jasper.servlet.JspServlet接管请求)
             Path Info: null
             当未定义 <welcome-file>index.jsp</welcome-file> 时:
             Entering Filter...  :请求到 HelloXmlServlet
@@ -76,7 +78,7 @@
             Servlet Path: /hello-servlet
             Path Info: null
         -->
-        <!--<url-pattern>/</url-pattern>-->
+        <url-pattern>/</url-pattern>
 
         <!--
             设置成 "" 时: 只在请求根路径时生效
@@ -102,8 +104,8 @@
     </servlet-mapping>
 
     <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.htm</welcome-file>
         <welcome-file>index.html</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
