@@ -3,4 +3,107 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <servlet>
+        <servlet-name>helloxmlservlet</servlet-name>
+        <servlet-class>com.ccg.hello_javaweb.HelloXmlServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>helloxmlservlet</servlet-name>
+        <!-- 预设条件: hello-servlet 映射到 /hello-servlet/*-->
+        <!--
+            设置成 "/*" 时: 拦截所有请求路径，除了更能精确匹配的servlet(如/hello-servlet)
+            (此时能拦截所有请求，所以不会再走进default servlet，只会走进更精确的servlet)
+            此时不再看 welcome-file: (请求根目录会自动加/)
+            Entering Filter...  :请求到 HelloXmlServlet
+            Request URI: /hello_javaweb_war_exploded/
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path:
+            Path Info: /
+
+            Entering Filter...  :请求到 HelloXmlServlet
+            Request URI: /hello_javaweb_war_exploded/index.jsp
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path:
+            Path Info: /index.jsp
+
+            Entering Filter...  :请求到 HelloXmlServlet
+            Request URI: /hello_javaweb_war_exploded/path
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path:
+            Path Info: /path
+
+            hello-servlet 映射到 /hello-servlet/* : /* 部分可匹配 "" 也可匹配 "/"
+            (若映射到 /hello-servlet/ 则只匹配 /hello-servlet/ 而不匹配 /hello-servlet)
+            Entering Filter...  :请求到 HelloServlet
+            Request URI: /hello_javaweb_war_exploded/hello-servlet
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path: /hello-servlet
+            Path Info: null
+            Entering Filter...  :请求到 HelloServlet
+            Request URI: /hello_javaweb_war_exploded/hello-servlet/
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path: /hello-servlet
+            Path Info: /
+        -->
+        <url-pattern>/*</url-pattern>
+
+        <!--
+            设置成 "/" 时: 覆盖 tomcat 的 DefaultServlet 设置(定义在<tomcat>/conf/web.xml中)
+            当定义 <welcome-file>index.jsp</welcome-file> 时:
+            (这是因为servlet查找顺序为: 用户自定义servlet > welcome-file > DefaultServlet，所以此时还可请求到 index.jsp)
+            Entering Filter...  :请求到 index.jsp
+            Request URI: /hello_javaweb_war_exploded/
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path: /index.jsp
+            Path Info: null
+            当未定义 <welcome-file>index.jsp</welcome-file> 时:
+            Entering Filter...  :请求到 HelloXmlServlet
+            Request URI: /hello_javaweb_war_exploded/
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path: /
+            Path Info: null
+
+            Entering Filter...  :请求到 HelloXmlServlet
+            Request URI: /hello_javaweb_war_exploded/path
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path: /path (只是这个servlet path找不到，被转到 / 处理)
+            Path Info: null
+
+            Entering Filter...  :请求到 HelloServlet
+            Request URI: /hello_javaweb_war_exploded/hello-servlet
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path: /hello-servlet
+            Path Info: null
+        -->
+        <!--<url-pattern>/</url-pattern>-->
+
+        <!--
+            设置成 "" 时: 只在请求根路径时生效
+            Entering Filter...  :请求到 HelloXmlServlet
+            Request URI: /hello_javaweb_war_exploded/
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path:
+            Path Info: /
+
+            Entering Filter...  :请求到 index.jsp
+            Request URI: /hello_javaweb_war_exploded/index.jsp
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path: /index.jsp
+            Path Info: null
+
+            Entering Filter...  : HTTP状态 404 - 未找到
+            Request URI: /hello_javaweb_war_exploded/path
+            Context Path: /hello_javaweb_war_exploded
+            Servlet Path: /path
+            Path Info: null
+        -->
+        <!--<url-pattern></url-pattern>-->
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
