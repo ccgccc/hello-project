@@ -9,6 +9,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 服务提供者的控制层
@@ -32,5 +33,17 @@ public class DeptController {
 	@RequestMapping(value = "/dept/list", method = RequestMethod.GET)
 	public List<Dept> list() {
 		return deptService.selectAll();
+	}
+
+	//超时测试,该服务的响应时间为 5 秒
+	@RequestMapping(value = "/dept/feign/timeout")
+	public String DeptFeignTimeout() {
+		//暂停 5 秒
+		try {
+			TimeUnit.SECONDS.sleep(5);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return serverPort;
 	}
 }
